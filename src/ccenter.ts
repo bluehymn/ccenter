@@ -42,7 +42,7 @@ export function init() {
 }
 
 export function registerEvent(name: string) {
-  if (checkCCenterStatus()) return;
+  if (!checkCCenterStatus()) return;
   if (getEventByName(name)) {
     console.error(`事件"${name}"已存在，不能重复注册。`);
     return;
@@ -53,7 +53,7 @@ export function registerEvent(name: string) {
 }
 
 export function registerState(name: string, value: any = null) {
-  if (checkCCenterStatus()) return;
+  if (!checkCCenterStatus()) return;
   if (getStateByName(name)) {
     console.error(`State"${name}"已存在，不能重复注册。`);
     return;
@@ -67,7 +67,7 @@ export function registerState(name: string, value: any = null) {
 }
 
 export function subscribeEvent(name: string, next: (value: any) => void) {
-  if (checkCCenterStatus()) return;
+  if (!checkCCenterStatus()) return;
   const event = getEventByName(name);
   if (!event) {
     const errorMsg = `Event: ${name} 不存在`;
@@ -83,7 +83,7 @@ export function subscribeEvent(name: string, next: (value: any) => void) {
 }
 
 export function dispatchEvent(name: string, payload: any) {
-  if (checkCCenterStatus()) return;
+  if (!checkCCenterStatus()) return;
   const event = getEventByName(name);
   if (!event) {
     const errorMsg = `Event: ${name} 不存在`;
@@ -94,7 +94,7 @@ export function dispatchEvent(name: string, payload: any) {
 }
 
 export function removeEvent(name: string) {
-  if (checkCCenterStatus()) return;
+  if (!checkCCenterStatus()) return;
   const event = getEventByName(name);
   if (!event) {
     const errorMsg = `Event: ${name} 不存在`;
@@ -105,7 +105,7 @@ export function removeEvent(name: string) {
 }
 
 export function getState(name: string) {
-  if (checkCCenterStatus()) return;
+  if (!checkCCenterStatus()) return;
   const state = getStateByName(name);
   if (!state) {
     const errorMsg = `State: ${name} 不存在`;
@@ -116,7 +116,7 @@ export function getState(name: string) {
 }
 
 export function subscribeState(name: string, next: (value: any) => void) {
-  if (checkCCenterStatus()) return;
+  if (!checkCCenterStatus()) return;
   const state = getStateByName(name);
   if (!state) {
     const errorMsg = `State: ${name} 不存在`;
@@ -130,7 +130,7 @@ export function subscribeState(name: string, next: (value: any) => void) {
 }
 
 export function setState(name: string, value: any) {
-  if (checkCCenterStatus()) return;
+  if (!checkCCenterStatus()) return;
   const state = getStateByName(name);
   if (!state) {
     const errorMsg = `State: ${name} 不存在`;
