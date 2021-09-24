@@ -1,6 +1,6 @@
 {
   "name": "ccenter",
-  "version": "1.0.1-alpha",
+  "version": "1.0.2-alpha",
   "description": "communication center for micro-frontend applications",
   "main": "./lib/index.js",
   "browser": "./lib/index.js",
@@ -16,6 +16,9 @@
   "dependencies": {
     "rxjs": "^6.6.7"
   },
+  "files": [
+    "/lib"
+  ],
   "devDependencies": {
     "@babel/core": "^7.15.5",
     "@babel/plugin-transform-modules-commonjs": "^7.15.4",
