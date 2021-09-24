@@ -1,13 +1,13 @@
-import { GLOBAL_NAME, init, initialized } from '..';
+import { GLOBAL_NAME, init, checkInitialStatus } from '..';
 
 describe('init', () => {
   beforeAll(() => {
-    expect(initialized).toBeFalsy();
+    expect(checkInitialStatus()).toBeFalsy();
     init();
   });
 
   test('initialized', () => {
     expect(window[GLOBAL_NAME]).toBeTruthy();
-    expect(initialized).toBeTruthy();
+    expect(checkInitialStatus()).toBeTruthy();
   });
 });

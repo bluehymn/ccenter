@@ -1,7 +1,5 @@
 import { Subject } from 'rxjs';
 
-export let initialized = false;
-
 export const GLOBAL_NAME = '__$CCenter__';
 export const EVENT_COLLECTION_NAME = '__events__';
 export const STATE_COLLECTION_NAME = '__states__';
@@ -11,7 +9,7 @@ export interface State {
   observable: Subject<any>;
 }
 
-function checkCCenterStatus() {
+export function checkInitialStatus() {
   if (!window[GLOBAL_NAME]) {
     const errorMsg = 'CCenter没有初始化';
     console.error(errorMsg);
@@ -34,15 +32,14 @@ export function init() {
     return;
   }
   window[GLOBAL_NAME] = {
+    initialized: true,
     [EVENT_COLLECTION_NAME]: {},
     [STATE_COLLECTION_NAME]: {},
   };
-
-  initialized = true;
 }
 
 export function registerEvent(name: string) {
-  if (!checkCCenterStatus()) return;
+  if (!checkInitialStatus()) return;
   if (getEventByName(name)) {
     console.error(`事件"${name}"已存在，不能重复注册。`);
     return;
@@ -53,7 +50,7 @@ export function registerEvent(name: string) {
 }
 
 export function registerState(name: string, value: any = null) {
-  if (!checkCCenterStatus()) return;
+  if (!checkInitialStatus()) return;
   if (getStateByName(name)) {
     console.error(`State"${name}"已存在，不能重复注册。`);
     return;
@@ -67,7 +64,7 @@ export function registerState(name: string, value: any = null) {
 }
 
 export function subscribeEvent(name: string, next: (value: any) => void) {
-  if (!checkCCenterStatus()) return;
+  if (!checkInitialStatus()) return;
   const event = getEventByName(name);
   if (!event) {
     const errorMsg = `Event: ${name} 不存在`;
@@ -83,7 +80,7 @@ export function subscribeEvent(name: string, next: (value: any) => void) {
 }
 
 export function dispatchEvent(name: string, payload: any) {
-  if (!checkCCenterStatus()) return;
+  if (!checkInitialStatus()) return;
   const event = getEventByName(name);
   if (!event) {
     const errorMsg = `Event: ${name} 不存在`;
@@ -94,7 +91,7 @@ export function dispatchEvent(name: string, payload: any) {
 }
 
 export function removeEvent(name: string) {
-  if (!checkCCenterStatus()) return;
+  if (!checkInitialStatus()) return;
   const event = getEventByName(name);
   if (!event) {
     const errorMsg = `Event: ${name} 不存在`;
@@ -105,7 +102,7 @@ export function removeEvent(name: string) {
 }
 
 export function getState(name: string) {
-  if (!checkCCenterStatus()) return;
+  if (!checkInitialStatus()) return;
   const state = getStateByName(name);
   if (!state) {
     const errorMsg = `State: ${name} 不存在`;
@@ -116,7 +113,7 @@ export function getState(name: string) {
 }
 
 export function subscribeState(name: string, next: (value: any) => void) {
-  if (!checkCCenterStatus()) return;
+  if (!checkInitialStatus()) return;
   const state = getStateByName(name);
   if (!state) {
     const errorMsg = `State: ${name} 不存在`;
@@ -130,7 +127,7 @@ export function subscribeState(name: string, next: (value: any) => void) {
 }
 
 export function setState(name: string, value: any) {
-  if (!checkCCenterStatus()) return;
+  if (!checkInitialStatus()) return;
   const state = getStateByName(name);
   if (!state) {
     const errorMsg = `State: ${name} 不存在`;
