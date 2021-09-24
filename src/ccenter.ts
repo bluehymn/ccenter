@@ -1,5 +1,7 @@
 import { Subject } from 'rxjs';
 
+export let initialized = false;
+
 export const GLOBAL_NAME = '__$CCenter__';
 export const EVENT_COLLECTION_NAME = '__events__';
 export const STATE_COLLECTION_NAME = '__states__';
@@ -35,6 +37,8 @@ export function init() {
     [EVENT_COLLECTION_NAME]: {},
     [STATE_COLLECTION_NAME]: {},
   };
+
+  initialized = true;
 }
 
 export function registerEvent(name: string) {
