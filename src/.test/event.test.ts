@@ -4,24 +4,21 @@ import {
   init,
   registerEvent,
   dispatchEvent,
-  subscribeEvent
+  subscribeEvent,
+  removeEvent
 } from '..';
 
-describe('test', () => {
+describe('event', () => {
   beforeAll(() => {
     init();
   });
 
-  test('initialized', () => {
-    expect(window[GLOBAL_NAME]).toBeTruthy();
-  });
-
-  test('registerEvent', () => {
+  test('register event', () => {
     registerEvent('init');
     expect(window[GLOBAL_NAME][EVENT_COLLECTION_NAME]['init']).toBeTruthy();
   });
 
-  test('subscribeEvent', () => {
+  test('dispatch and subscribe event', () => {
     registerEvent('event1');
 
     setTimeout(() => {
@@ -35,4 +32,10 @@ describe('test', () => {
       });
     });
   });
+
+  test('remove event', () => {
+    removeEvent('event1');
+    const result = subscribeEvent('event1', () => {});
+    expect(result).toBeFalsy();
+  })
 });
